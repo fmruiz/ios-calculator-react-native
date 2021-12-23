@@ -1,7 +1,14 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
-const CalculatorButton = ({btnTxt, txtBlack, containerColor, double}) => {
+const CalculatorButton = ({
+  btnTxt,
+  txtBlack,
+  containerColor,
+  double,
+  setFunction,
+}) => {
+  // calculator styles
   const styles = StyleSheet.create({
     container: {
       borderRadius: 100,
@@ -23,10 +30,10 @@ const CalculatorButton = ({btnTxt, txtBlack, containerColor, double}) => {
       backgroundColor: '#9b9b9b',
     },
     backgroundGray: {
-      backgroundColor: 'gray',
+      backgroundColor: '#2d2d2d',
     },
     backgroundOrange: {
-      backgroundColor: 'orange',
+      backgroundColor: '#ff9427',
     },
     text: {
       fontWeight: 'bold',
@@ -41,19 +48,21 @@ const CalculatorButton = ({btnTxt, txtBlack, containerColor, double}) => {
   });
 
   return (
-    <View
-      style={[
-        styles.container,
-        containerColor === 'grayLight' && styles.backgroundGrayLight,
-        containerColor === 'gray' && styles.backgroundGray,
-        containerColor === 'orange' && styles.backgroundOrange,
-        double ? styles.sizeLarge : styles.sizeNormal,
-      ]}>
-      <Text
-        style={[styles.text, txtBlack ? styles.textBlack : styles.textWhite]}>
-        {btnTxt}
-      </Text>
-    </View>
+    <TouchableOpacity onPress={() => setFunction(btnTxt)}>
+      <View
+        style={[
+          styles.container,
+          containerColor === 'grayLight' && styles.backgroundGrayLight,
+          containerColor === 'gray' && styles.backgroundGray,
+          containerColor === 'orange' && styles.backgroundOrange,
+          double ? styles.sizeLarge : styles.sizeNormal,
+        ]}>
+        <Text
+          style={[styles.text, txtBlack ? styles.textBlack : styles.textWhite]}>
+          {btnTxt}
+        </Text>
+      </View>
+    </TouchableOpacity>
   );
 };
 
