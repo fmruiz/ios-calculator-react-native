@@ -25,6 +25,10 @@ const CalculatorScreen = () => {
         setNumber(number + param);
       } else if (param !== '0' && !number.includes('.')) {
         setNumber(param);
+      } else if (param === '0' && !number.includes('.')) {
+        setNumber(number);
+      } else {
+        setNumber(number + param);
       }
     } else {
       setNumber(number + param);
@@ -37,6 +41,17 @@ const CalculatorScreen = () => {
       setNumber(number.replace('-', ''));
     } else {
       setNumber(number.replace('', '-'));
+    }
+  };
+
+  // create del function of calculator
+  const btnDelete = () => {
+    let numbersArr = number.split('');
+    if (numbersArr.length > 1) {
+      let slice = numbersArr.slice(0, -1);
+      setNumber(slice.join(''));
+    } else {
+      setNumber('0');
     }
   };
 
@@ -57,9 +72,9 @@ const CalculatorScreen = () => {
       double: false,
     },
     {
-      value: '%',
+      value: 'del',
       valueColor: true,
-      valueFunction: clear,
+      valueFunction: btnDelete,
       containerColor: 'grayLight',
       double: false,
     },
@@ -185,8 +200,9 @@ const CalculatorScreen = () => {
       </Text>
 
       <View style={styles.buttonsDashboard}>
-        {btnArr.map(btn => (
+        {btnArr.map((btn, i) => (
           <CalculatorButton
+            key={i}
             btnTxt={btn.value}
             txtBlack={btn.valueColor}
             containerColor={btn.containerColor}
